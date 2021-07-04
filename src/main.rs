@@ -8,5 +8,5 @@ fn main() {
 
     let file = fs::read_to_string(filename).expect("File not found");
 
-    println!("{} {}", filename, file);
+    println!("{} \n{}", filename, file);
 }
