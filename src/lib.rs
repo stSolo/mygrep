@@ -1,3 +1,5 @@
+mod tests;
+
 use std::error::Error;
 use std::fs;
 
@@ -11,6 +13,10 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 pub struct Config {
     pub pattern: String,
     pub filename: String,
+}
+
+pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
+    vec![]
 }
 
 impl Config {
