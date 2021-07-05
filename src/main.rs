@@ -17,6 +17,9 @@ struct Config {
 
 impl Config {
     fn new(args: &[String]) -> Config {
+        if args.len() < 3 {
+            panic!("Not enougth args!")
+        }
         let pattern = args[1].clone();
         let filename = args[2].clone();
         Config { pattern, filename }
