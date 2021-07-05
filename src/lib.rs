@@ -5,8 +5,9 @@ use std::fs;
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file = fs::read_to_string(&config.filename)?;
-
-    println!("{} \n{}", config.filename, file);
+    for line in search(&config.pattern, &file) {
+        println!("{}", line);
+    }
     Ok(())
 }
 
@@ -16,7 +17,14 @@ pub struct Config {
 }
 
 pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    vec![]
+    let mut result = Vec::new();
+
+    for line in content.lines() {
+        if line.contains(query) {
+            result.push(line);
+        }
+    }
+    result
 }
 
 impl Config {

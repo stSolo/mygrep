@@ -5,9 +5,9 @@ use super::*;
 fn one_result() {
     let query = "duct";
     let content = "\
-    Rust:
-    safe, fast, productive
-    Download right now!
+Rust:
+safe, fast, productive
+Download right now!
     ";
     assert_eq!(vec!["safe, fast, productive"], search(query, content));
 }
