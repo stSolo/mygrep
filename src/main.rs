@@ -3,15 +3,20 @@ use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let (pattern, filename) = parse_confing(&args);
+    let config = parse_confing(&args);
 
-    let file = fs::read_to_string(filename).expect("File not found");
+    let file = fs::read_to_string(&config.filename).expect("File not found");
 
-    println!("{} \n{}", filename, file);
+    println!("{} \n{}", config.filename, file);
 }
 
-fn parse_confing(args: &[String]) -> (&str, &str) {
-    let pattern = &args[1];
-    let filename = &args[2];
-    (pattern, filename)
+struct Config {
+    pattern: String,
+    filename: String,
+}
+
+fn parse_confing(args: &[String]) -> Config {
+    let pattern = args[1].clone();
+    let filename = args[2].clone();
+    Config { pattern, filename }
 }
