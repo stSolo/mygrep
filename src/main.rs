@@ -1,9 +1,13 @@
 use std::env;
 use std::fs;
+use std::process;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = Config::new(&args);
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Problem with: {}", err);
+        process::exit(1);
+    });
 
     let file = fs::read_to_string(&config.filename).expect("File not found");
 
@@ -16,12 +20,12 @@ struct Config {
 }
 
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn new(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            panic!("Not enougth args!")
+            return Err("Not enougth args!");
         }
         let pattern = args[1].clone();
         let filename = args[2].clone();
-        Config { pattern, filename }
+        Ok(Config { pattern, filename })
     }
 }
